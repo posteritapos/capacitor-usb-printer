@@ -4,16 +4,20 @@ Usb printer plugin
 
 ## Install
 
-To use npm
+Install from npm:
 
 ```bash
 npm install capacitor-usb-printer
-````
+```
 
-To use yarn
+Install directly from the GitHub repository:
 
 ```bash
-yarn add capacitor-usb-printer
+# npm (Git URL)
+npm install git+https://github.com/posteritapos/capacitor-usb-printer.git
+
+# yarn
+yarn add https://github.com/posteritapos/capacitor-usb-printer.git
 ```
 
 Sync native files
