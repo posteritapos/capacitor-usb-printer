@@ -1,5 +1,5 @@
 {
-  "name": "capacitor-usb-printer",
+  "name": "@posterita/capacitor-usb-printer",
   "version": "0.0.1",
   "description": "Usb printer plugin",
   "main": "dist/plugin.cjs.js",

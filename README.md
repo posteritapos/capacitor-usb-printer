@@ -1,4 +1,4 @@
-# capacitor-usb-printer
+# @posterita/capacitor-usb-printer
 
 Usb printer plugin
 
@@ -7,7 +7,7 @@ Usb printer plugin
 Install from npm:
 
 ```bash
-npm install capacitor-usb-printer
+npm install @posterita/capacitor-usb-printer
 ```
 
 Install directly from the GitHub repository:
@@ -30,7 +30,7 @@ npx cap sync
 1. Install and sync the plugin:
 
 ```bash
-npm install capacitor-usb-printer
+npm install @posterita/capacitor-usb-printer
 npx cap sync
 ```
 
@@ -43,7 +43,7 @@ npx cap sync
 3. Example usage (TypeScript)
 
 ```ts
-import { UsbPrinter } from 'capacitor-usb-printer';
+import { UsbPrinter } from '@posterita/capacitor-usb-printer';
 
 // enumerate attached devices and let the user pick one
 const { devices } = await UsbPrinter.listDevices();
