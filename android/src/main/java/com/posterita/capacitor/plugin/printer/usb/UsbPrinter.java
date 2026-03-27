@@ -234,7 +234,11 @@ public class UsbPrinter {
     }
 
     private void requestPermission(UsbDevice device) {
-        PendingIntent permissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        int flags = PendingIntent.FLAG_UPDATE_CURRENT;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            flags |= PendingIntent.FLAG_IMMUTABLE;
+        }
+        PendingIntent permissionIntent = PendingIntent.getBroadcast(context, 0, new Intent(ACTION_USB_PERMISSION), flags);
         usbManager.requestPermission(device, permissionIntent);
     }
 
@@ -297,11 +301,11 @@ public class UsbPrinter {
                         byte[] out = new byte[len];
                         System.arraycopy(buffer, 0, out, 0, len);
                         String data = new String(out);
-                        if (plugin != null) {
+                        if (plugin instanceof UsbPrinterPlugin) {
                             JSObject event = new JSObject();
                             event.put("data", data);
                             event.put("deviceId", deviceId);
-                            plugin.notifyListeners("usbData", event);
+                            ((UsbPrinterPlugin) plugin).notifyUsbData(event);
                         }
                     }
                 } catch (Exception e) {

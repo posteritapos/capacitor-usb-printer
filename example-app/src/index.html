@@ -1,65 +1,109 @@
-<!doctype html>
-<html lang="en" dir="ltr" class="hydrated">
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Example Capacitor App</title>
+    <title>Capacitor USB Printer Example</title>
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code&display=swap" rel="stylesheet" />
   </head>
   <body>
     <main>
-      <h1>Capacitor Test Plugin Project</h1>
-      <p>
-        This project can be used to test out the functionality of your plugin. Nothing in the
-        <em>example-app/</em> folder will be published to npm when using this template, so you can create away!
-      </p>
-      <label for="echoInput">Echo Text:</label>
-      <input type="text" id="echoInput" name="echoInput" value="Hello World!" />
-      <button onclick="testEcho()">Click Me!</button>
-      <hr />
-      <h2>USB Printer</h2>
-      <div>
-        <button onclick="listUsb()">List Devices</button>
-        <select id="deviceSelect" style="min-width:320px" multiple size="4">
-          <!-- populated dynamically -->
-        </select>
-        <div style="margin-top:8px">
-          <button onclick="connectUsb()">Connect Selected</button>
-          <button onclick="disconnectUsb()">Disconnect Selected</button>
-          <button onclick="checkConnected()">Check Selected</button>
-          <button onclick="showConnected()">Show Connected</button>
-          <button onclick="connectAll()">Connect All</button>
-          <button onclick="disconnectAll()">Disconnect All</button>
+      <h1>USB Printer Control</h1>
+      <p>Android USB Host & Web Compatibility Tester</p>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>1. Device Discovery</h2>
+          <button onclick="listUsb()" class="outline">Scan for Devices</button>
         </div>
-        <div style="margin-top:8px">
-          <strong>Connected Devices</strong>
-          <div id="connectedList" style="min-height:48px; border:1px solid #eee; padding:6px; margin-top:6px"></div>
+        <div class="input-group">
+          <label for="deviceSelect">Select Printer(s)</label>
+          <select id="deviceSelect" multiple size="4">
+            <!-- populated dynamically -->
+          </select>
         </div>
-        <div style="margin-top:8px">
-          <strong>Assign Slots</strong>
-          <div style="margin-top:6px">
-            <button onclick="assignA()">Assign Selected → A</button>
-            <span id="slotA" style="margin-left:8px">A: (none)</span>
+        <div class="flex">
+          <button onclick="connectUsb()">Connect Selection</button>
+          <button onclick="disconnectUsb()" class="secondary">Disconnect Selection</button>
+          <button onclick="checkConnected()" class="secondary">Check Status</button>
+        </div>
+        <div class="flex" style="margin-top: 1rem;">
+          <button onclick="connectAll()" class="secondary">Connect All</button>
+          <button onclick="disconnectAll()" class="secondary">Disconnect All</button>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="section-title">
+            <h2>2. Active Connections</h2>
           </div>
-          <div style="margin-top:6px">
-            <button onclick="assignB()">Assign Selected → B</button>
-            <span id="slotB" style="margin-left:8px">B: (none)</span>
+          <div id="connectedList" class="status-list">
+            <div class="status-item" style="color: var(--text-muted);">No devices connected</div>
           </div>
-          <div style="margin-top:6px">
-            <button onclick="sendToA()">Send To A</button>
-            <button onclick="sendToB()">Send To B</button>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <h2>3. Multi-Device Slots</h2>
+          </div>
+          <div class="input-group">
+            <div class="flex" style="justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <button onclick="assignA()" class="secondary" style="padding: 0.4rem 0.8rem;">Assign to A</button>
+              <span id="slotA" class="slot-badge">Slot A: (none)</span>
+            </div>
+            <div class="flex" style="justify-content: space-between; align-items: center;">
+              <button onclick="assignB()" class="secondary" style="padding: 0.4rem 0.8rem;">Assign to B</button>
+              <span id="slotB" class="slot-badge">Slot B: (none)</span>
+            </div>
+          </div>
+          <div class="flex" style="margin-top: 1rem;">
+            <button onclick="sendToA()" class="outline">Test Slot A</button>
+            <button onclick="sendToB()" class="outline">Test Slot B</button>
           </div>
         </div>
       </div>
-      <div>
-        <label for="sendInput">Message:</label>
-        <input type="text" id="sendInput" value="Hello Printer" />
-        <button onclick="sendUsb()">Send</button>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>4. Print & Commands</h2>
+        </div>
+        <div class="input-group">
+          <label for="sendInput">Custom Message</label>
+          <input type="text" id="sendInput" value="Hello from Capacitor!" />
+        </div>
+        <div class="flex">
+          <button onclick="sendUsb()" style="flex: 1;">Send Text</button>
+          <button onclick="printTestReceipt()" class="outline">Sample Receipt (Binary)</button>
+          <button onclick="kickDrawer()" class="secondary">Open Drawer</button>
+          <button onclick="cutPaper()" class="secondary">Cut Paper</button>
+        </div>
       </div>
-      <pre id="log" style="height:200px; overflow:auto; border:1px solid #ccc"></pre>
+
+      <div class="card">
+        <div class="section-title">
+          <h2>5. Diagnostics</h2>
+        </div>
+        <div class="input-group">
+          <label for="echoInput">Echo Test Value</label>
+          <div class="flex">
+            <input type="text" id="echoInput" value="Capacitor 8" style="flex: 1;" />
+            <button onclick="testEcho()" class="secondary">Test Echo</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title" style="margin-top: 2rem;">
+        <h2>Console Output</h2>
+        <button onclick="document.getElementById('log').innerHTML = ''" class="secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">Clear Log</button>
+      </div>
+      <div id="log"></div>
     </main>
 
     <script src="./js/example.js" type="module"></script>

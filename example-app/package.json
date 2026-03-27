@@ -15,7 +15,6 @@
   "dependencies": {
     "@capacitor/core": "latest",
     "capacitor-usb-printer": "file:..",
-    "@capacitor/ios": "^8.0.0",
     "@capacitor/android": "^8.0.0"
   },
   "devDependencies": {

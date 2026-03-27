@@ -66,6 +66,10 @@ public class UsbPrinterPlugin extends Plugin {
         implementation.isConnected(call);
     }
 
+    public void notifyUsbData(JSObject data) {
+        notifyListeners("usbData", data);
+    }
+
     public void onDestroy() {
         try {
             implementation.destroy();

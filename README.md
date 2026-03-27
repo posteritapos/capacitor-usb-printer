@@ -89,7 +89,7 @@ cd example-app/android && ./gradlew assembleDebug
 ```
 
 Notes
-- This plugin currently supports Android USB host APIs only. Web calls will reject.
+- This plugin currently supports Android USB host APIs and Web (stub/compatibility).
 - Use `listDevices()` to enumerate attached USB devices and present a picker to users. If a device doesn't work, capture its metadata and file an issue so endpoint/interface handling can be improved.
 - For ESC/POS, prefer sending base64 binary payloads to avoid encoding issues.
 
