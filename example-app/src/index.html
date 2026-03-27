@@ -19,6 +19,47 @@
       <label for="echoInput">Echo Text:</label>
       <input type="text" id="echoInput" name="echoInput" value="Hello World!" />
       <button onclick="testEcho()">Click Me!</button>
+      <hr />
+      <h2>USB Printer</h2>
+      <div>
+        <button onclick="listUsb()">List Devices</button>
+        <select id="deviceSelect" style="min-width:320px" multiple size="4">
+          <!-- populated dynamically -->
+        </select>
+        <div style="margin-top:8px">
+          <button onclick="connectUsb()">Connect Selected</button>
+          <button onclick="disconnectUsb()">Disconnect Selected</button>
+          <button onclick="checkConnected()">Check Selected</button>
+          <button onclick="showConnected()">Show Connected</button>
+          <button onclick="connectAll()">Connect All</button>
+          <button onclick="disconnectAll()">Disconnect All</button>
+        </div>
+        <div style="margin-top:8px">
+          <strong>Connected Devices</strong>
+          <div id="connectedList" style="min-height:48px; border:1px solid #eee; padding:6px; margin-top:6px"></div>
+        </div>
+        <div style="margin-top:8px">
+          <strong>Assign Slots</strong>
+          <div style="margin-top:6px">
+            <button onclick="assignA()">Assign Selected → A</button>
+            <span id="slotA" style="margin-left:8px">A: (none)</span>
+          </div>
+          <div style="margin-top:6px">
+            <button onclick="assignB()">Assign Selected → B</button>
+            <span id="slotB" style="margin-left:8px">B: (none)</span>
+          </div>
+          <div style="margin-top:6px">
+            <button onclick="sendToA()">Send To A</button>
+            <button onclick="sendToB()">Send To B</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="sendInput">Message:</label>
+        <input type="text" id="sendInput" value="Hello Printer" />
+        <button onclick="sendUsb()">Send</button>
+      </div>
+      <pre id="log" style="height:200px; overflow:auto; border:1px solid #ccc"></pre>
     </main>
 
     <script src="./js/example.js" type="module"></script>

@@ -1,2 +1,4 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+	<!-- Allow USB host feature -->
+	<uses-feature android:name="android.hardware.usb.host" android:required="false" />
 </manifest>
